@@ -1,4 +1,27 @@
 <!DOCTYPE html>
+
+<?php
+
+
+
+require 'simple_html_dom.php';
+
+$html = file_get_html('http://www.lospleimovil.cl/cartelera.php');
+
+$shows = $html->find('div.caluga_cartelera');
+
+$cantidad_shows = count($shows);
+
+for ($i=0; $i < $cantidad_shows; $i++) { 
+   $titulo[$i] = $shows[$i]->find('h3',0)->plaintext;
+   $descripcion[$i] = $shows[$i]->find('p',0)->plaintext;   
+   $imagen[$i] = "http://www.lospleimovil.cl/" . $shows[$i]->find('img',0)->src;
+}
+ 
+
+?>
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +34,24 @@
         .contenido{
             margin-top: 60px;
         }
+        .titulo{
+            margin-top:10px;
+            font-size: 20px;
+            font-weight: 600;
+            height: 45px;
+        }
+        .card-content{
+            padding: 10px !important;
+        }
+        .card-content p{
+            text-align: left;
+            font-size: 14px;
+            line-height: 16px;
+            font-weight: 500;
+            color: #777;
+        }
     </style>
+    
 </head>
 <body>
 
@@ -31,61 +71,36 @@
     
     <div id="obras" class="container contenido">
         <div class="row center">
-            <div class="col s12 m3">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="curso2.jpg" alt="">
-                        <span class="card-title">Obra 1</span>
-                    </div>
-                    <div class="card-content">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+
+            <?php 
+            for ($i=0; $i < $cantidad_shows; $i++) { 
+                  
+                echo <<< EOT
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="$imagen[$i]" alt="$imagen[$i]">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="titulo">$titulo[$i]</h3>
+                            <p>$descripcion[$i]</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col s12 m3">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="curso2.jpg" alt="">
-                        <span class="card-title">Obra 2</span>
-                    </div>
-                    <div class="card-content">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col s12 m3">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="curso2.jpg" alt="">
-                        <span class="card-title">Obra 3</span>
-                    </div>
-                    <div class="card-content">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col s12 m3">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="curso2.jpg" alt="">
-                        <span class="card-title">Obra 4</span>
-                    </div>
-                    <div class="card-content">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
-                </div>
-            </div>
-
+    
+EOT;
+            }
+    
+?>
         </div>
     </div>
 
+    
     <div id="votacion" class="container contenido">
         <div class="row">
             <div class="col s12 btn-flat disabled"></div>
-            <a href="#" class="col s12 waves-effect waves-light btn">Escanear Qr</a>
+            <a href="#" id="readQR" class="col s12 waves-effect waves-light btn">Escanear Qr</a>
             <div class="col s12 btn-flat disabled"></div>
             <div class="col s12 btn-flat disabled"></div>
             <a href="#votos" class="col s12 waves-effect waves-light btn modal-trigger">Votar</a>
@@ -94,7 +109,7 @@
             
         </div>
     </div>
-
+    
     <div class="modal modal-fixed-footer" id="votos">
         <div class="modal-content">
             <form action="#" id="votosF">
@@ -152,6 +167,8 @@
     <script>
         M.AutoInit();
     </script>
+
+    
 
 </body>
 </html>
