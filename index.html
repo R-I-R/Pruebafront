@@ -88,11 +88,63 @@
             <a href="#" class="col s12 waves-effect waves-light btn">Escanear Qr</a>
             <div class="col s12 btn-flat disabled"></div>
             <div class="col s12 btn-flat disabled"></div>
-            <a href="#" class="col s12 waves-effect waves-light btn disabled">Votar</a>
+            <a href="#votos" class="col s12 waves-effect waves-light btn modal-trigger">Votar</a>
             <div class="col s12 btn-flat disabled"></div>
-            <a href="#" class="col s12 waves-effect waves-light btn disabled">Proponer titulo</a>
+            <a href="#titulos" class="col s12 waves-effect waves-light btn modal-trigger">Proponer titulo</a>
             
         </div>
+    </div>
+
+    <div class="modal modal-fixed-footer" id="votos">
+        <div class="modal-content">
+            <form action="#" id="votosF">
+                <p>
+                    <label>
+                        <input type="radio" name="voto" value="1" checked>
+                        <span>Opcion 1</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="radio" name="voto" value="2">
+                        <span>Opcion 2</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="radio" name="voto" value="3">
+                        <span>Opcion 3</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="radio" name="voto" value="4">
+                        <span>Opcion 4</span>
+                    </label>
+                </p>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" form="votosF" class="btn modal-close">Enviar</button>
+        </div>
+
+    </div>
+
+    <div class="modal" id="titulos">
+        <div class="modal-content">
+            <form action="#" id="titulosF">
+                <div class="input-field">
+                    <input type="text" name="titulo" id="tituloL" class="validate">
+                    <label for="tituloL">Titulo</label>
+                </div>
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" form="titulosF" class="btn">Enviar</button>
+        </div>
+        
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
